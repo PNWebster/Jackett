@@ -1,11 +1,13 @@
+using Jackett.Common.Utils;
+
 namespace Jackett.Common.Models
 {
     internal class CategoryMapping
     {
         public CategoryMapping(string trackerCat, string trackerCatDesc, int newzCat)
         {
-            TrackerCategory = trackerCat;
-            TrackerCategoryDesc = trackerCatDesc;
+            TrackerCategory = trackerCat.ToSystemReferencedString();
+            TrackerCategoryDesc = trackerCatDesc.ToSystemReferencedString();
             NewzNabCategory = newzCat;
         }
 

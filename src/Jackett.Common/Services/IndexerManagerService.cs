@@ -157,6 +157,7 @@ namespace Jackett.Common.Services
 
             var deserializer = new DeserializerBuilder()
                         .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                        .WithTypeConverter(new StringCacheTypeConverter())
                         //.IgnoreUnmatchedProperties()
                         .Build();
 
@@ -221,6 +222,11 @@ namespace Jackett.Common.Services
                 logger.Error($"Error while loading Cardigann definitions: {e}");
             }
             logger.Info($"Loaded {indexers.Count} indexers in total");
+
+            foreach(var indexer in indexers.Values)
+            {
+                indexer.TorznabCaps.Categories.CompactCategoryMappings();
+            }
         }
 
         public void InitMetaIndexers()

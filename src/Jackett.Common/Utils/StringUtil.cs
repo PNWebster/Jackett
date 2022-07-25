@@ -259,5 +259,19 @@ namespace Jackett.Common.Utils
             }
             return result;
         }
+
+        /// <summary>
+        /// Allow re-use of references to strings.
+        /// https://docs.microsoft.com/en-us/dotnet/api/system.string.intern?view=net-6.0
+        /// </summary>
+        /// <remarks>Should only be used for strings that have 2 characteristics: lifetime of string must match that of the application and re-use of the value is expected.</remarks>
+        /// <returns>A string reference from the system pool</returns>
+        public static string ToSystemReferencedString(this string source)
+        {
+            if (source == null)
+                return null;
+
+            return String.Intern(source);
+        }
     }
 }

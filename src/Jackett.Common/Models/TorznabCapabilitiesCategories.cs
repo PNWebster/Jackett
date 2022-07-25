@@ -8,8 +8,8 @@ namespace Jackett.Common.Models
 {
     public class TorznabCapabilitiesCategories
     {
-        private readonly List<CategoryMapping> _categoryMapping = new List<CategoryMapping>();
-        private readonly List<TorznabCategory> _torznabCategoryTree = new List<TorznabCategory>();
+        private ICollection<CategoryMapping> _categoryMapping = new List<CategoryMapping>();
+        private List<TorznabCategory> _torznabCategoryTree = new List<TorznabCategory>();
 
         public List<string> GetTrackerCategories() => _categoryMapping
             .Where(m => m.NewzNabCategory < 100000)
@@ -185,6 +185,11 @@ namespace Jackett.Common.Models
                     // custom cat
                     _torznabCategoryTree.Add(torznabCategory);
             }
+        }
+
+        internal void CompactCategoryMappings()
+        {
+            _categoryMapping = new List<CategoryMapping>(_categoryMapping);
         }
     }
 }
